@@ -1,9 +1,9 @@
-import c from './Header.module.css';
+import s from './Header.module.css';
 
 const Header = () => {
-    return <header className={c.header}>
-        <img src="https://www.mosaiccounselingla.com/wp-content/uploads/2019/05/isep-logo-img.png" alt=""/>
-    </header>;
+    return <header className={s.header}>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDdJpvpgr0ex8D_llrc9QSKmyUR5q8Zpd5EQ&usqp=CAU" alt=""/>
+    </header>
 }
 
 export default Header;
