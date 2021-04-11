@@ -1,11 +1,12 @@
 import s from './Profile.module.css';
 import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import {DispatchFunctionType, ProfilePageType} from "../../redux/state";
+import {ProfilePageStateType} from "../../redux/profile-reducer";
+import {Dispatch} from "redux";
 
 type ProfilePropsType = {
-    profilePage: ProfilePageType,
-    dispatch: DispatchFunctionType
+    profilePage: ProfilePageStateType,
+    dispatch: Dispatch
 }
 
 const Profile = (props: ProfilePropsType) => {

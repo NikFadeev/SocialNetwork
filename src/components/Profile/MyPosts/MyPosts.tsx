@@ -1,17 +1,13 @@
 import React, {ChangeEvent} from 'react';
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
-import {
-    addPostActionCreator,
-    DispatchFunctionType,
-    PostType,
-    updateNewPostTextActionCreator,
-} from "../../../redux/state";
+import {addPostActionCreator, PostType, updateNewPostTextActionCreator} from "../../../redux/profile-reducer";
+import {Dispatch} from "redux";
 
 type MyPostsPropsType = {
     posts: PostType[],
     newPostText: string
-    dispatch: DispatchFunctionType
+    dispatch: Dispatch
 }
 
 const MyPosts = (props: MyPostsPropsType) => {
