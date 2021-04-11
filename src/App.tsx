@@ -15,18 +15,16 @@ type appPropsType = {
 
 function App(props: appPropsType) {
     return (
-        <div className="app-wrapper">
-            <Header/>
-            <Navbar/>
-            <div className={'app-wrapper-content'}>
-                <Route path={'/dialogs'}
-                       render={() => <Dialogs store={props.store} />} />
-                <Route path={'/profile'}
-                       render={() => <Profile
-                           profilePage={props.state.profilePage}
-                           dispatch={props.dispatch} />} />
-            </div>
+      <div className="app-wrapper">
+        <Header />
+        <Navbar />
+        <div className={'app-wrapper-content'}>
+          <Route path={'/dialogs'}
+            render={() => <Dialogs store={props.store} />} />
+          <Route path={'/profile'}
+            render={() => <Profile store={props.store} />} />
         </div>
+      </div>
     );
 }
 
