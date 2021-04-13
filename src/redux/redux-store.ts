@@ -1,16 +1,21 @@
-import {createStore, combineReducers} from 'redux';
-import {addPostActionType, profileReducer, updateNewPostActionType} from "./profile-reducer";
-import {dialogsReducer, sendMessageActionType, updateNewMessageBodyActionType} from "./dialogs-reducer";
+import { createStore, combineReducers } from 'redux';
+import { addPostActionType, profileReducer, updateNewPostActionType } from "./profile-reducer";
+import { dialogsReducer, sendMessageActionType, updateNewMessageBodyActionType } from "./dialogs-reducer";
+import { followActionType, setUsersActionType, unfollowActionType, usersReducer } from './users-reducer';
 
 export type ActionType =
-    updateNewPostActionType
-    | addPostActionType
-    | updateNewMessageBodyActionType
-    | sendMessageActionType;
+  updateNewPostActionType
+  | addPostActionType
+  | updateNewMessageBodyActionType
+  | sendMessageActionType
+  | setUsersActionType
+  | followActionType
+  | unfollowActionType;
 
 const reducer = combineReducers({
-    dialogsPage: dialogsReducer,
-    profilePage: profileReducer
+  dialogsPage: dialogsReducer,
+  profilePage: profileReducer,
+  usersPage: usersReducer
 })
 
 let store = createStore(reducer);
