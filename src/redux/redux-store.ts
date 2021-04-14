@@ -2,6 +2,7 @@ import { createStore, combineReducers } from 'redux';
 import { addPostActionType, profileReducer, setUserProfileActionType, updateNewPostActionType } from "./profile-reducer";
 import { dialogsReducer, sendMessageActionType, updateNewMessageBodyActionType } from "./dialogs-reducer";
 import { followActionType, setCurrentPageActionType, setUsersActionType, setUsersTotalCountActionType, toggleIsFetchingActionType, unfollowActionType, usersReducer } from './users-reducer';
+import { authReducer, setAuthUserDataActionType } from './auth-reducer';
 
 export type ActionType =
   updateNewPostActionType
@@ -14,13 +15,15 @@ export type ActionType =
   | setCurrentPageActionType
   | setUsersTotalCountActionType
   | toggleIsFetchingActionType
-  | setUserProfileActionType;
+  | setUserProfileActionType
+  | setAuthUserDataActionType;
 
 
 const reducer = combineReducers({
   dialogsPage: dialogsReducer,
   profilePage: profileReducer,
-  usersPage: usersReducer
+  usersPage: usersReducer,
+  authPage: authReducer
 })
 
 let store = createStore(reducer);
