@@ -1,5 +1,5 @@
 import { createStore, combineReducers } from 'redux';
-import { addPostActionType, profileReducer, updateNewPostActionType } from "./profile-reducer";
+import { addPostActionType, profileReducer, setUserProfileActionType, updateNewPostActionType } from "./profile-reducer";
 import { dialogsReducer, sendMessageActionType, updateNewMessageBodyActionType } from "./dialogs-reducer";
 import { followActionType, setCurrentPageActionType, setUsersActionType, setUsersTotalCountActionType, toggleIsFetchingActionType, unfollowActionType, usersReducer } from './users-reducer';
 
@@ -13,7 +13,8 @@ export type ActionType =
   | unfollowActionType
   | setCurrentPageActionType
   | setUsersTotalCountActionType
-  | toggleIsFetchingActionType;
+  | toggleIsFetchingActionType
+  | setUserProfileActionType;
 
 
 const reducer = combineReducers({

@@ -1,14 +1,22 @@
+import { ProfileType } from '../../../redux/profile-reducer';
+import Preloader from '../../common/Preloader/Preloader';
 import s from './ProfileInfo.module.css';
 
-const ProfileInfo = () => {
-    return <div>
-        <div>
-            <img src="https://memax.club/wp-content/uploads/2019/05/zima_na_zastavku_15_20064653.jpg" alt=""/>
+export type PropsType = {
+  profile: ProfileType | null
+}
+
+const ProfileInfo = (props: PropsType) => {
+  if (!props.profile) {
+    return <Preloader />
+  }
+
+  return <div>
+    <div className={s.descriptionBlock}>
+      <img src={props.profile.photos.large} />
+      ava + description
         </div>
-        <div className={s.descriptionBlock}>
-            ava + description
-        </div>
-    </div>
+  </div>
 }
 
 export default ProfileInfo;
