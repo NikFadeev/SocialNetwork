@@ -1,3 +1,6 @@
+import axios from "axios";
+import { Dispatch } from "redux";
+import { usersAPI } from "../api/api";
 import { ActionType } from "./redux-store";
 
 const SET_USERS = 'SET_USERS';
@@ -83,7 +86,7 @@ export const usersReducer = (state: UsersPageStateType = initialState, action: A
 }
 
 export type setUsersActionType = { type: typeof SET_USERS, users: UserType[] };
-export type followActionType = ReturnType<typeof follow>;
+export type followActionType = ReturnType<typeof followSuccess>;
 export type unfollowActionType = { type: typeof UNFOLLOW, userId: number };
 export type setCurrentPageActionType = ReturnType<typeof setCurrentPage>;
 export type setUsersTotalCountActionType = ReturnType<typeof setTotalUsersCount>;
@@ -91,9 +94,48 @@ export type toggleIsFetchingActionType = ReturnType<typeof toggleIsFetching>;
 export type toggleFollowingProgressActionType = ReturnType<typeof toggleFollowingProgress>;
 
 export const setUsers = (users: UserType[]) => ({ type: SET_USERS, users });
-export const follow = (userId: number) => ({ type: FOLLOW, userId }) as const;
-export const unfollow = (userId: number) => ({ type: UNFOLLOW, userId })
+export const followSuccess = (userId: number) => ({ type: FOLLOW, userId }) as const;
+export const unfollowSuccess = (userId: number) => ({ type: UNFOLLOW, userId })
 export const setCurrentPage = (currentPage: number) => ({ type: SET_CURRENT_PAGE, currentPage }) as const;
 export const setTotalUsersCount = (totalUsersCount: number) => ({ type: SET_TOTAL_USERS_COUNT, count: totalUsersCount }) as const;
 export const toggleIsFetching = (isFetching: boolean) => ({ type: TOGGLE_IS_FETCHING, isFetching }) as const;
 export const toggleFollowingProgress = (isFetching: boolean, userId: number) => ({ type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, userId }) as const;
+
+export const getUsers = (currentPage: number, pageSize: number) => (dispatch: Dispatch) => {
+  dispatch(toggleIsFetching(true));
+  usersAPI.getUsers(currentPage, pageSize)
+    .then(response => {
+      dispatch(toggleIsFetching(false));
+      dispatch(setUsers(response.items));
+      dispatch(setCurrentPage(currentPage));
+      dispatch(setTotalUsersCount(response.totalCount));
+    });
+}
+
+export const unfollow = (userId: number) => (dispatch: Dispatch) => {
+  dispatch(toggleFollowingProgress(true, userId));
+  axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`, {
+    withCredentials: true,
+    headers: { "API-KEY": "397aad83-4661-4e77-8514-df8ec891b853" }
+  })
+    .then((response) => {
+      if (response.data.resultCode === 0) {
+        dispatch(unfollowSuccess(userId));
+        dispatch(toggleFollowingProgress(false, userId));
+      }
+    })
+}
+
+export const follow = (userId: number) => (dispatch: Dispatch) => {
+  dispatch(toggleFollowingProgress(true, userId));
+  axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`, {}, {
+    withCredentials: true,
+    headers: { "API-KEY": "397aad83-4661-4e77-8514-df8ec891b853" }
+  })
+    .then((response) => {
+      if (response.data.resultCode === 0) {
+        dispatch(followSuccess(userId));
+        dispatch(toggleFollowingProgress(false, userId));
+      }
+    })
+}
