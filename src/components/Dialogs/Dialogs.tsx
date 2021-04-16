@@ -6,6 +6,7 @@ import { DialogsPageStateType, sendMessageCreator, updateNewMessageBodyCreator }
 import { connect } from 'react-redux';
 import { StateType } from '../../redux/redux-store';
 import { Dispatch } from 'redux';
+import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 
 type DialogsType = {
   dialogsPage: DialogsPageStateType
@@ -68,4 +69,6 @@ function mapDispatchToProps(dispatch: Dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Dialogs);
+const withRedirect = withAuthRedirect(Dialogs);
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRedirect);
