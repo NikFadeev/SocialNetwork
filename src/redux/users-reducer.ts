@@ -114,12 +114,9 @@ export const getUsers = (currentPage: number, pageSize: number) => (dispatch: Di
 
 export const unfollow = (userId: number) => (dispatch: Dispatch) => {
   dispatch(toggleFollowingProgress(true, userId));
-  axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`, {
-    withCredentials: true,
-    headers: { "API-KEY": "397aad83-4661-4e77-8514-df8ec891b853" }
-  })
-    .then((response) => {
-      if (response.data.resultCode === 0) {
+  usersAPI.unfollow(userId)
+    .then(data => {
+      if (data.resultCode === 0) {
         dispatch(unfollowSuccess(userId));
         dispatch(toggleFollowingProgress(false, userId));
       }
@@ -128,12 +125,9 @@ export const unfollow = (userId: number) => (dispatch: Dispatch) => {
 
 export const follow = (userId: number) => (dispatch: Dispatch) => {
   dispatch(toggleFollowingProgress(true, userId));
-  axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`, {}, {
-    withCredentials: true,
-    headers: { "API-KEY": "397aad83-4661-4e77-8514-df8ec891b853" }
-  })
-    .then((response) => {
-      if (response.data.resultCode === 0) {
+  usersAPI.follow(userId)
+    .then(data => {
+      if (data.resultCode === 0) {
         dispatch(followSuccess(userId));
         dispatch(toggleFollowingProgress(false, userId));
       }
