@@ -1,8 +1,7 @@
 import React from 'react';
 import Profile from './Profile';
 import { connect } from 'react-redux';
-import { ProfileType, setUserProfile } from '../../redux/profile-reducer';
-import axios from 'axios';
+import { ProfileType, getUserProfile } from '../../redux/profile-reducer';
 import { StateType } from '../../redux/redux-store';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 
@@ -10,7 +9,7 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 // а после & указывается тип оставшихся пропсов
 type PropsType = RouteComponentProps<{ userId: string }> & {
   profile: ProfileType | null,
-  setUserProfile: (profile: ProfileType) => void
+  getUserProfile: (userId: number) => void
 }
 
 class ProfileContainer extends React.Component<PropsType> {
@@ -20,10 +19,7 @@ class ProfileContainer extends React.Component<PropsType> {
       userId = "2";
     }
 
-    axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
-      .then(response => {
-        this.props.setUserProfile(response.data);
-      })
+    this.props.getUserProfile(Number(userId));
   }
 
   render() {
@@ -38,4 +34,4 @@ function mapStateToProps(state: StateType) {
 }
 
 const withUrl = withRouter(ProfileContainer);
-export default connect(mapStateToProps, { setUserProfile })(withUrl);
+export default connect(mapStateToProps, { getUserProfile })(withUrl);
