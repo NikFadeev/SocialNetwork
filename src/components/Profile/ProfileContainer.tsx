@@ -1,7 +1,7 @@
 import React from 'react';
 import Profile from './Profile';
 import { connect } from 'react-redux';
-import { ProfileType, getUserProfile } from '../../redux/profile-reducer';
+import { ProfileType, getUserProfile, getStatus, updateStatus } from '../../redux/profile-reducer';
 import { StateType } from '../../redux/redux-store';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { compose } from 'redux';
@@ -10,7 +10,9 @@ import { compose } from 'redux';
 // а после & указывается тип оставшихся пропсов
 type PropsType = RouteComponentProps<{ userId: string }> & {
   profile: ProfileType | null,
-  getUserProfile: (userId: number) => void
+  getUserProfile: (userId: number) => void,
+  getStatus: (userId: number) => void,
+  updateStatus: (status: string) => void
 }
 
 class ProfileContainer extends React.Component<PropsType> {
@@ -21,6 +23,9 @@ class ProfileContainer extends React.Component<PropsType> {
     }
 
     this.props.getUserProfile(Number(userId));
+    setTimeout(() => {
+      this.props.getStatus(Number(userId));
+    }, 2000);
   }
 
   render() {
@@ -30,11 +35,12 @@ class ProfileContainer extends React.Component<PropsType> {
 
 function mapStateToProps(state: StateType) {
   return {
-    profile: state.profilePage.profile
+    profile: state.profilePage.profile,
+    status: state.profilePage.status
   }
 }
 
 export default compose<React.ComponentType>(
-  connect(mapStateToProps, { getUserProfile }),
+  connect(mapStateToProps, { getUserProfile, getStatus, updateStatus }),
   withRouter
 )(ProfileContainer);

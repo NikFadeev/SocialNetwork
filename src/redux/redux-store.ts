@@ -1,5 +1,5 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
-import { addPostActionType, profileReducer, setUserProfileActionType, updateNewPostActionType } from "./profile-reducer";
+import { addPostActionType, profileReducer, setStatusActionType, setUserProfileActionType, updateNewPostActionType } from "./profile-reducer";
 import { dialogsReducer, sendMessageActionType, updateNewMessageBodyActionType } from "./dialogs-reducer";
 import { followActionType, setCurrentPageActionType, setUsersActionType, setUsersTotalCountActionType, toggleFollowingProgressActionType, toggleIsFetchingActionType, unfollowActionType, usersReducer } from './users-reducer';
 import { authReducer, setAuthUserDataActionType } from './auth-reducer';
@@ -18,7 +18,8 @@ export type ActionType =
   | toggleIsFetchingActionType
   | setUserProfileActionType
   | setAuthUserDataActionType
-  | toggleFollowingProgressActionType;
+  | toggleFollowingProgressActionType
+  | setStatusActionType;
 
 
 const reducer = combineReducers({
@@ -34,3 +35,6 @@ export type StoreType = typeof store;
 export type StateType = ReturnType<typeof store.getState>;
 
 export default store;
+
+// @ts-ignore
+window.st = store;

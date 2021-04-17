@@ -20,10 +20,20 @@ export const usersAPI = {
   unfollow(userId: number) {
     return instance.delete(`follow/${userId}`)
       .then(response => response.data);
-  },
+  }
+}
+
+export const profileAPI = {
   getProfile(userId: number) {
-    return instance.get(`profile/${userId}`)
+    return instance.get('/profile/' + userId)
       .then(response => response.data);
+  },
+  getStatus(userId: number) {
+    return instance.get('/profile/status/' + userId)
+      .then(response => response.data);
+  },
+  updateStatus(status: string) {
+    return instance.put('/profile/status', { status: status })
   }
 }
 
