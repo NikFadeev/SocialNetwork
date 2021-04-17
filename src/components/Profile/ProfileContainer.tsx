@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { ProfileType, getUserProfile } from '../../redux/profile-reducer';
 import { StateType } from '../../redux/redux-store';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { compose } from 'redux';
 
 // в RouteComponentProps прописывается тип пропсов которые должны прийти из withRouter
 // а после & указывается тип оставшихся пропсов
@@ -33,5 +34,7 @@ function mapStateToProps(state: StateType) {
   }
 }
 
-const withUrl = withRouter(ProfileContainer);
-export default connect(mapStateToProps, { getUserProfile })(withUrl);
+export default compose<React.ComponentType>(
+  connect(mapStateToProps, { getUserProfile }),
+  withRouter
+)(ProfileContainer);
