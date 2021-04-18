@@ -4,6 +4,7 @@ import { dialogsReducer, sendMessageActionType, updateNewMessageBodyActionType }
 import { followActionType, setCurrentPageActionType, setUsersActionType, setUsersTotalCountActionType, toggleFollowingProgressActionType, toggleIsFetchingActionType, unfollowActionType, usersReducer } from './users-reducer';
 import { authReducer, setAuthUserDataActionType } from './auth-reducer';
 import thunkMiddleware from 'redux-thunk';
+import { reducer as formReducer } from 'redux-form';
 
 export type ActionType =
   updateNewPostActionType
@@ -26,7 +27,8 @@ const reducer = combineReducers({
   dialogsPage: dialogsReducer,
   profilePage: profileReducer,
   usersPage: usersReducer,
-  authPage: authReducer
+  authPage: authReducer,
+  form: formReducer
 })
 
 let store = createStore(reducer, applyMiddleware(thunkMiddleware));
