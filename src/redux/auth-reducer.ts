@@ -1,4 +1,3 @@
-import { Dispatch } from "redux";
 import { ThunkAction } from "redux-thunk";
 import { authAPI } from "../api/api";
 import { ActionType, StateType } from "./redux-store";
@@ -16,7 +15,7 @@ const initialState: AuthStateType = {
   id: null,
   email: null,
   login: null,
-  isAuth: false
+  isAuth: false,
 }
 
 export function authReducer(state: AuthStateType = initialState, action: ActionType) {
@@ -37,9 +36,10 @@ export type setAuthUserDataActionType = ReturnType<typeof setAuthUserData>;
 export const setAuthUserData = (id: number | null, email: string | null, login: string | null, isAuth: boolean) => ({ type: SET_AUTH_USER_DATA, payload: { id, email, login, isAuth } }) as const;
 
 type ThunkType = ThunkAction<void, StateType, unknown, ActionType>;
+type ThunkReturnType = ThunkAction<Promise<void>, StateType, unknown, ActionType>;
 
-export const getAuthUserData = (): ThunkType => (dispatch) => {
-  authAPI.me()
+export const getAuthUserData = (): ThunkReturnType => (dispatch) => {
+  return authAPI.me()
     .then((response) => {
       if (response.data.resultCode === 0) {
         const { id, email, login } = response.data.data;
