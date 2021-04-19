@@ -1,5 +1,9 @@
 import React from 'react';
 import { Field, InjectedFormProps, reduxForm } from 'redux-form';
+import { StateType } from '../../redux/redux-store';
+import { login } from '../../redux/auth-reducer';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router';
 
 type LoginFormPropsType = InjectedFormProps;
 
@@ -25,13 +29,18 @@ const LoginReduxForm = reduxForm({
 })(LoginForm);
 
 type LoginPropsType = {
-
+  isAuth: boolean,
+  login: (email: string, password: string, rememberMe: boolean) => void
 }
 
 function Login(props: LoginPropsType) {
   const handleSubmit = (formData: { login?: string, password?: string, rememberMe?: boolean}) => {
-    console.log(formData);
+    if (formData.login && formData.password) {
+      props.login(formData.login, formData.password, formData.rememberMe ?? false);
+    }
   }
+
+  if (props.isAuth) return <Redirect to={'/profile'} />
 
   return <div>
     <h1>Login</h1>
@@ -39,4 +48,10 @@ function Login(props: LoginPropsType) {
   </div>
 }
 
-export default Login;
+function mapStateToProps(state: StateType) {
+  return {
+    isAuth: state.authPage.isAuth
+  }
+}
+
+export default connect(mapStateToProps, { login })(Login);
