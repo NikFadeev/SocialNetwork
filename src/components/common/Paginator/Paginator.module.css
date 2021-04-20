@@ -1,0 +1,6 @@
+.paginator {
+    margin-bottom: 20px;
+}
+.selectedPage {
+    font-weight: bold;
+};
