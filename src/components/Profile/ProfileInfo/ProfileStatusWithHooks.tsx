@@ -10,7 +10,6 @@ const ProfileStatus: React.FC<PropsType> = (props) => {
   const [status, setStatus] = useState(props.status);
 
   useEffect(() => {
-    debugger
     setStatus(props.status);
   }, [props.status])
 

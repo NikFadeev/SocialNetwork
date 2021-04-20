@@ -1,5 +1,5 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
-import { addPostActionType, profileReducer, setStatusActionType, setUserProfileActionType } from "./profile-reducer";
+import { addPostActionType, profileReducer, savePhotoSuccessActionType, setStatusActionType, setUserProfileActionType } from "./profile-reducer";
 import { dialogsReducer, sendMessageActionType } from "./dialogs-reducer";
 import { followActionType, setCurrentPageActionType, setUsersActionType, setUsersTotalCountActionType, toggleFollowingProgressActionType, toggleIsFetchingActionType, unfollowActionType, usersReducer } from './users-reducer';
 import { authReducer, setAuthUserDataActionType } from './auth-reducer';
@@ -20,7 +20,8 @@ export type ActionType =
   | setAuthUserDataActionType
   | toggleFollowingProgressActionType
   | setStatusActionType
-  | initializedSuccessActionType;
+  | initializedSuccessActionType
+  | savePhotoSuccessActionType;
 
 
 const reducer = combineReducers({
