@@ -33,6 +33,8 @@ const reducer = combineReducers({
   appPage: appReducer
 })
 
+
+
 let store = createStore(reducer, applyMiddleware(thunkMiddleware));
 
 export type StoreType = typeof store;
